@@ -88,7 +88,7 @@ public class FlutterAppauthPlugin implements FlutterPlugin, MethodCallHandler, P
         this.applicationContext = context;
         defaultAuthorizationService = new AuthorizationService(this.applicationContext);
         AppAuthConfiguration.Builder authConfigBuilder = new AppAuthConfiguration.Builder();
-        authConfigBuilder.setConnectionBuilder(InsecureConnectionBuilder.INSTANCE);
+        authConfigBuilder.setConnectionBuilder(ConnectionBuilderForTesting.INSTANCE);
         insecureAuthorizationService = new AuthorizationService(applicationContext, authConfigBuilder.build());
         final MethodChannel channel = new MethodChannel(binaryMessenger, "crossingthestreams.io/flutter_appauth");
         channel.setMethodCallHandler(this);
@@ -397,7 +397,7 @@ public class FlutterAppauthPlugin implements FlutterPlugin, MethodCallHandler, P
             if (exchangeCode) {
                 AppAuthConfiguration.Builder authConfigBuilder = new AppAuthConfiguration.Builder();
                 if (allowInsecureConnections) {
-                    authConfigBuilder.setConnectionBuilder(InsecureConnectionBuilder.INSTANCE);
+                    authConfigBuilder.setConnectionBuilder(ConnectionBuilderForTesting.INSTANCE);
                 }
 
                 AuthorizationService authService = new AuthorizationService(applicationContext, authConfigBuilder.build());
